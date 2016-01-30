@@ -23,7 +23,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <form name="sentMessage" id="contactForm" novalidate>
+            {!! Form::open(['route' => 'posts.store', 'method' => 'post', 'name' => 'sentMessage', 'id' => 'contactForm', 'novalidate']) !!}
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         {!! Form::label('title', '標題') !!}
@@ -60,7 +60,7 @@
                         {!! Form::submit('送出', ['class' => 'btn btn-primary']) !!}
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

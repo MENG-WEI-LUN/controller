@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class homeController extends Controller
+class aboutController extends Controller
 {
-    public function index() {
-    	return view('posts.index');
+    public  function index() {
+    	
+    	return view('about.index');
 	}
 }

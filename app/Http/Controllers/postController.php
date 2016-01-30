@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Post;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +16,11 @@ class postController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::all();
+
+        $data=compact('posts');
+
+        return view('posts.index',$data);
     }
 
     /**
@@ -26,7 +30,7 @@ class postController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -37,7 +41,9 @@ class postController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post=Post::create($request->except('_token'));
+
+        return 'posts.store';
     }
 
     /**
@@ -48,7 +54,11 @@ class postController extends Controller
      */
     public function show($id)
     {
-        //
+        $posts = Post::find($id);    
+
+        $data = compact('posts');
+
+        return view('posts.show', $data);
     }
 
     /**
@@ -59,7 +69,11 @@ class postController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id); 
+
+        $data = compact('post');
+
+        return  view('posts.edit', $data);
     }
 
     /**
@@ -71,7 +85,12 @@ class postController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request->except('_token','_method'));
+        $post=Post::find($id);
+
+        $post->update($request->except('_token'));
+        
+        return 'posts.update';
     }
 
     /**
@@ -84,4 +103,20 @@ class postController extends Controller
     {
         //
     }
+
+    public function Hot() {
+        $posts=Post::where('page_view','>',100);
+
+        $data=compact('posts');
+
+    return view('posts.index',$data);
+    }
+
+    public function random() {
+    $posts=Post::random();
+    
+    $data = compact('posts');
+
+    return view('posts.show', $data);
+}
 }
