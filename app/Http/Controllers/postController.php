@@ -43,7 +43,7 @@ class postController extends Controller
     {
         $post=Post::create($request->except('_token'));
 
-        return 'posts.store';
+        return redirect()->route('posts.show',$post);
     }
 
     /**
@@ -90,7 +90,7 @@ class postController extends Controller
 
         $post->update($request->except('_token'));
         
-        return 'posts.update';
+        return redirect()->route('posts.show',$post);
     }
 
     /**
@@ -101,7 +101,8 @@ class postController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect('posts');
     }
 
     public function Hot() {
