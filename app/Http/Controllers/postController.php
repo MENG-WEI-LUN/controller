@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests;
+use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 
 class postController extends Controller
@@ -39,7 +40,7 @@ class postController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $post=Post::create($request->except('_token'));
 
@@ -55,6 +56,11 @@ class postController extends Controller
     public function show($id)
     {
         $posts = Post::find($id);    
+
+        if(is_null($posts))
+        {
+            redirect()->route('posts.index')->with('message','找不到文章');
+        }
 
         $data = compact('posts');
 
@@ -83,7 +89,7 @@ class postController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         //dd($request->except('_token','_method'));
         $post=Post::find($id);

@@ -23,6 +23,11 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
+            @foreach($errors->all() as $error)
+                {{$error}}
+            @endforeach
+            
             {!! Form::model($post, ['route' => ['posts.update', $post->id], 'method' => 'patch', 'name' => 'sentMessage', 'id' => 'contactForm', 'novalidate']) !!}
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
