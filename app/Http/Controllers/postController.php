@@ -16,7 +16,7 @@ class postController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('updated_at')->paginate(8);
 
         $data=compact('posts');
 
@@ -106,7 +106,7 @@ class postController extends Controller
     }
 
     public function Hot() {
-        $posts=Post::where('page_view','>',100);
+        $posts=Post::where('page_view','>',100)->get();
 
         $data=compact('posts');
 
@@ -114,7 +114,7 @@ class postController extends Controller
     }
 
     public function random() {
-    $posts=Post::random();
+    $posts=Post::find(rand(1,20));
     
     $data = compact('posts');
 
